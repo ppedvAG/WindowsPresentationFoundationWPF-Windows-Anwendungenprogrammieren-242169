@@ -1,0 +1,108 @@
+﻿<Window x:Class="M002.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="800" Width="300"
+		WindowStartupLocation="CenterScreen"
+		Topmost="True">
+    <StackPanel>
+		<!--TextBlock: Anzeige von Text-->
+		<!--Alternative: Label-->
+		<TextBlock Text="Hallo"
+				   TextAlignment="Center"
+				   Foreground="Aqua"
+				   Background="LightGreen"/>
+			
+		<!--Vorteil: Kann auch Images anzeigen-->
+		<!--Nachteil: Kann weder Text noch Images besonders gut (im Gegensatz zu TextBlock und Image)-->
+		<Label Content="Hallo"
+			   HorizontalContentAlignment="Center"
+			   Foreground="Aqua"
+			   Background="LightGreen"
+			   Padding="0"/>
+		
+		
+		<!--Button: Interaktives Element-->
+		<Button Content="Hallo"
+				Click="Button_Click"
+				BorderBrush="Black"
+				IsEnabled="True"/>
+		
+		<!--Content kann hier ein beliebiges Objekt sein (Image, anderes UI-Element, ...)-->
+		<Button>
+			<Image Source="C:\Users\lk3\source\repos\WPF_2024_10_14\M002\ppedv-Logo.png"/>
+		</Button>
+		
+		<!--Image: Anzeigen von Bildern (Source um Pfad anzugeben)-->
+		<Image Source="C:\Users\lk3\source\repos\WPF_2024_10_14\M002\ppedv-Logo.png"
+			   Stretch="UniformToFill"/>
+		
+		<!--TextBox: Eingabefeld-->
+		<!--Aufgabenstellung: Mit einem Button die Eingabe bestätigen-->
+		<!--Bonus: Mit Enter die Eingabe bestätigen-->
+		<TextBlock Name="Ausgabe"/>
+		<TextBox Name="Eingabe"
+				 KeyDown="Eingabe_KeyDown"/>
+		<Button Content="Eingabe bestätigen"
+				Click="ConfirmClicked"/>
+		
+		<!--ComboBox: Dropdown mit einer Auswahl-->
+		<!--Aufgabenstellung: Auswahl bei Änderung in einem Textfeld anzeigen-->
+		<TextBlock Name="AusgabeAuswahl"/>
+		<ComboBox Name="Auswahl"
+				  SelectionChanged="Auswahl_Selected">
+			<ComboBoxItem Content="Item1"/>
+			<ComboBoxItem Content="Item2"/>
+			<ComboBoxItem Content="Item3"/>
+		</ComboBox>
+		
+		<!--Eine Liste von unbestimmten Items (aus dem Backend) anbinden-->
+		<!--Hierfür wird das ItemsSource Property verwendet-->
+		<!--Aufgabenstellung: Die 7 Wochentage an eine ComboBox anbinden-->
+		<ComboBox Name="AuswahlTag"/>
+		
+		<!--CheckBox: Auswahl Ja/Nein-->
+		<CheckBox Content="Ja"
+				  IsChecked="True"/>
+		
+		<!--RadioButton: Auswahl Ja/Nein, können zusammengruppiert werden-->
+		<RadioButton Content="Ja" GroupName="JN"/>
+		<RadioButton Content="Nein" GroupName="JN"/>
+		<RadioButton Content="Keine Ahnung" GroupName="JN"/>
+
+		<!--Slider: Wert von X bis Y, kann per Drag & Drop verändert werden-->
+		<!--Aufgabenstellung: Wert des Sliders anzeigen-->
+		<TextBlock Name="AusgabeSlider"/>
+		<Slider Minimum="0" Maximum="100" Value="5" ValueChanged="Slider_ValueChanged"
+				TickFrequency="1" IsSnapToTickEnabled="True"
+				TickPlacement="BottomRight" Foreground="Black"/>
+		<!--Problem: Slider zeigt unschöne Kommazahlen an-->
+		<!--Lösung: Ticks-->
+		
+		<!--Irreguläre Intervalle-->
+		<Slider Minimum="0" Maximum="500"
+				Ticks="5, 10, 20, 50, 100, 200, 500"
+				TickPlacement="BottomRight"
+				IsSnapToTickEnabled="True"
+				Foreground="Black"/>
+
+		<!--ProgressBar: Fortschritt anzeigen-->
+		<!--Funktioniert ähnlich wie ein Slider-->
+		<ProgressBar Minimum="0" Maximum="100" Value="30" Height="30"/>
+		
+		<!--Menu: Menüleiste oben, mit Untermenüs-->
+		<!--Verschachtelung von MenuItems-->
+		<Menu>
+			<MenuItem Header="Datei">
+				<MenuItem Header="Neu"/>
+				<MenuItem Header="Öffnen"/>
+				<MenuItem Header="Speichern"/>
+				<MenuItem Header="Schließen"/>
+			</MenuItem>
+			<MenuItem Header="Enum" Name="MenuWochentage"/>
+		</Menu>
+
+		<!--ListBox: Anzeige von mehreren Elementen-->
+		<!--Einzelne/Mehrere Elemente können auch ausgewählt werden-->
+		<ListBox Name="ListBoxWochentage" SelectionMode="Extended"/>
+	</StackPanel>
+</Window>
