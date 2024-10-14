@@ -1,0 +1,31 @@
+﻿<Window x:Class="M001.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="450" Width="300">
+	<Window.Background>
+		<LinearGradientBrush>
+			<GradientStop Color="LightGreen" Offset="0"/>
+			<GradientStop Color="Orange" Offset="1"/>
+		</LinearGradientBrush>
+	</Window.Background>
+    <StackPanel Margin="10">
+		<Button>
+			Hallo
+		</Button>
+		<!--Kommentar-->
+		
+		<Button Content="Hallo"/>
+		<Button Content="Hallo"/>
+		<Button Content="Button"
+				Height="137"
+				FontSize="50"
+				Background="Red"
+				Foreground="White"
+				Opacity="0.5"
+				Click="Button_Click"/>
+		<TextBlock>Hallo</TextBlock>
+		
+		<!--Name: Voller Zugriff auf das UI-Element im C#-Code-->
+		<CheckBox Name="CB">Hallo</CheckBox>
+	</StackPanel>
+</Window>
