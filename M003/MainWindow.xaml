@@ -1,0 +1,126 @@
+﻿<Window x:Class="M003.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow"
+		Height="800"
+		Width="300"
+		WindowStartupLocation="CenterScreen"
+		Topmost="True">
+	<ScrollViewer VerticalScrollBarVisibility="Visible">
+		<StackPanel>
+			<!--Width & Height-->
+			<!--Gibt eine absolute Größe in Pixeln für die entsprechende Komponente vor-->
+			<!--WICHTIG: Generell sollte Width/Height nicht absolut gesetzt werden, sondern durch die umliegende Layoutkomponente vorgegeben werden-->
+			<Button Content="Hallo"/>
+
+			<!--Margin & Padding-->
+			<!--Gibt den Außen-/Innenabstand der Komponente an-->
+			<!--Padding: Der Abstand vom Inhalt der Komponente zur Komponente selbst-->
+			<!--Margin/Padding mit bis zu 4 Dimensionen angegeben werden-->
+
+			<!--Drei Möglichkeiten: -->
+			<!--Allgemeiner Abstand-->
+			<!--Links/Rechts, Oben/Unten-->
+			<!--Links, Oben, Rechts, Unten-->
+			<Button Content="Hallo Margin"
+				Margin="5, 10"
+				Padding="10, 20, 50, 10"/>
+
+			<!--Alignment-->
+			<!--Komponenten links-/rechtsbündig machen oder zentrieren-->
+			<!--Bei StackPanel ist vertikales Alignment nicht erlaubt-->
+			<Button Content="Hallo Alignment" HorizontalAlignment="Left"/>
+			<Button Content="Hallo Alignment" HorizontalAlignment="Right"/>
+			<Button Content="Hallo Alignment" HorizontalAlignment="Center"/>
+			<Button Content="Hallo Alignment"
+				HorizontalAlignment="Stretch"
+				HorizontalContentAlignment="Right"/>
+
+			<!--StackPanel-->
+			<!--Stapelt alle Komponenten, kann auch horizontal angelegt werden-->
+			<StackPanel Orientation="Horizontal">
+				<Button Content="Hallo StackPanel"/>
+				<Button Content="Hallo StackPanel"/>
+				<Button Content="Hallo StackPanel"/>
+				<Button Content="Hallo StackPanel"/>
+			</StackPanel>
+
+			<!--WrapPanel-->
+			<!--StackPanel, aber gibt überschüssige Elemente in die nächste Zeile-->
+			<WrapPanel Orientation="Horizontal">
+				<Button Content="Hallo StackPanel"/>
+				<Button Content="Hallo StackPanel"/>
+				<Button Content="Hallo StackPanel"/>
+				<Button Content="Hallo StackPanel"/>
+			</WrapPanel>
+
+			<!--DockPanel-->
+			<!--Enthält bis zu 5 Komponenten, jede Komponente wird über DockPanel.Dock=[Seite] positioniert-->
+			<!--WICHTIG: Reihenfolge der Komponenten beeinflusst die Überlagerung der Komponenten-->
+			<DockPanel>
+				<Button Content="Left" DockPanel.Dock="Left"/>
+				<Button Content="Right" DockPanel.Dock="Right"/>
+				<Button Content="Top" DockPanel.Dock="Top"/>
+				<Button Content="Bottom" DockPanel.Dock="Bottom"/>
+				<Button Content="Center" Height="50"/>
+			</DockPanel>
+
+			<!--Grid-->
+			<!--Erlaubt Positionierung von Elementen anhand von Spalten-/Zeilenindizes-->
+			<!--Benötigt immer Row-/ColumnDefinitions-->
+			<Grid>
+				<!--Höhen-/Breiteneinheiten-->
+				<!--*: Jede Zeile/Spalte ist gleich groß-->
+				<!--3x Height=* -> Insgesamt 3*, Fensterbreite = 300 -> 1* = 100-->
+				<Grid.RowDefinitions>
+					<!--Auto: Zeile ist so hoch, wie der größte Inhalt der ganzen Zeile-->
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="50"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<!--Hier: Insgesamt 6* -> Fensterbreite = 300 -> 1* = 50, 3* = 150 (50%), 2* = 100 (33%), 1* = 50 (16.6%)-->
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="3*"/>
+					<ColumnDefinition Width="2*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<!--Jede Komponente wird automatisch so groß, wie ihre Zelle vorgibt-->
+				<!--Wie groß ist eine Zelle?-->
+				<!--Eine Zelle ist so groß, wie die innerhalb liegende Komponente vorgibt-->
+				<Button Content="Grid0-0" Grid.Row="0" Grid.Column="0"/>
+				<Button Content="Grid0-1" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+				<!--<Button Content="Grid0-2" Grid.Row="0" Grid.Column="2"/>-->
+				<Button Content="Grid1-0" Grid.Row="1" Grid.Column="0"/>
+				<!--<Button Content="Grid1-1" Grid.Row="1" Grid.Column="1"/>-->
+				<!--<Button Content="Grid1-2" Grid.Row="1" Grid.Column="2"/>-->
+				<Button Content="Grid2-0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+				<!--<Button Content="Grid2-1" Grid.Row="2" Grid.Column="1"/>-->
+				<Button Content="Grid2-2" Grid.Row="2" Grid.Column="2"/>
+
+			</Grid>
+
+			<!--UniformGrid-->
+			<!--Funktioniert wie ein Grid, aber nimmt nur Spalten- und Zeilenanzahlen-->
+			<UniformGrid Columns="3">
+				<Button Content="UGrid"/>
+				<Button Content="UGrid"/>
+				<Button Content="UGrid"/>
+				<Button Content="UGrid"/>
+				<Button Content="UGrid"/>
+			</UniformGrid>
+
+			<!--Border-->
+			<!--Legt einen Rahmen um ein Element herum-->
+			<!--WICHTIG: Die Border kann immer nur ein Element enthalten-->
+			<Border BorderBrush="Aqua" BorderThickness="3">
+				<!--Das Element sollte generell eine Layoutkomponente sein-->
+				<StackPanel>
+					<Button Content="Rahmen"/>
+					<Button Content="Rahmen"/>
+					<Button Content="Rahmen"/>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+	</ScrollViewer>
+</Window>
