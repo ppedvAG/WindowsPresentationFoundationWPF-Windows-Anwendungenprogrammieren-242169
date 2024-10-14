@@ -1,0 +1,104 @@
+﻿<Window x:Class="M004.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="clr-namespace:M004"
+        Title="MainWindow" Height="450" Width="300"
+		WindowStartupLocation="CenterScreen"
+		Topmost="True">
+	<Window.Resources>
+		<local:ScoreToGradeConverter x:Key="SCGConv"/>
+		<local:ScoreToColorConverter x:Key="SCCConv"/>
+	</Window.Resources>
+    <StackPanel Margin="5">
+		<!--Binding-->
+		<!--Kopplung zw. zwei UI-Komponenten -> Wenn sich die eine Komponente verändert, wird die andere auch verändert-->
+		<!--Hintergrund: Kein zusätzlicher Code für UI-Updates notwendig-->
+		
+		<!--Aufgabenstellung: Wert eines Sliders in einem TextBlock anzeigen-->
+		<Slider Minimum="0" Maximum="100" Name="OutputSlider"/>
+		<TextBlock FontSize="30" Name="TB">
+			<!--Text muss hier ausgelagert werden, um ein Binding anlegen zu können-->
+			<TextBlock.Text>
+				<!--WICHTIG: Bindings müssen am Ziel definiert werden-->
+				<Binding ElementName="OutputSlider" Path="Value" Mode="TwoWay"/>
+			</TextBlock.Text>
+		</TextBlock>
+		<Button Content="TB anpassen" Click="Button_Click"/>
+
+		<!--Binding Mode-->
+		<!--Gibt die Richtung des Bindings an-->
+		<!--Standard: Immer OneWay, manchmal TwoWay (aber nicht immer)-->
+		<Slider Name="SliderA"/>
+		<Slider>
+			<Slider.Value>
+				<!--Standard hier: TwoWay-->
+				<Binding ElementName="SliderA" Path="Value"/>
+			</Slider.Value>
+		</Slider>
+		
+		<!--UpdateSourceTrigger-->
+		<!--Gibt den Zeitpunkt der Aktualisierung an-->
+		<!--Standard: PropertyChanged oder LostFocus-->
+		<!--Alternative: Explicit, muss über C#-Code aktiviert werden-->
+		
+		<!--StringFormat-->
+		<!--Anpassen des Wertes (Vor/Nach den Wert noch extra Text hinzufügen)-->
+		<!--WICHTIG: Der Wert des Bindings bleibt unverändert, der String wird nur für die Anzeige verwendet-->
+		<!--WICHTIG: StringFormat mit einzelnen Hochkomma angeben ('...')-->
+		
+		<!--Binding per MarkupExtension-->
+		<!--= Kurzform-->
+		<!--Einzeilige Bindings statt vollen Blöcken-->
+		
+		<TextBlock FontSize="30">
+			<TextBlock.Text>
+				<Binding ElementName="OutputSlider" Path="Value" Mode="TwoWay" StringFormat="Zahl: {0:F2}"/>
+			</TextBlock.Text>
+		</TextBlock>
+
+		<TextBlock Text="{Binding ElementName=OutputSlider, Path=Value, Mode=TwoWay, StringFormat='Zahl: {0:F2}'}"
+				   FontSize="30"/>
+			
+		<!--Converter-->
+		<!--Werden benötigt, um Werte bei einem Binding zu konvertieren zu einem anderen Wert-->
+		<!--z.B.: Slider Value zu einer Farbe-->
+			
+		<!--Aufgabenstellung: Value -> Farbe + Value -> Text-->
+		<!--Zwei eigene Converter: ScoreToGradeConverter, ScoreToColorConverter-->
+		<!--Zwei eigene Klassen, welche das IValueConverter Interface haben-->
+		<Slider Minimum="0" Maximum="100" Name="PunkteSlider"/>
+		<TextBlock Text="{Binding ElementName=PunkteSlider, Path=Value, Converter={StaticResource SCGConv}}"
+				   Background="{Binding ElementName=PunkteSlider, Path=Value, Converter={StaticResource SCCConv}}"/>
+
+		<!--
+			<Window.Resources>
+				<local:ScoreToGradeConverter x:Key="SCGConv"/>
+			</Window.Resources>
+		-->
+		
+		<!--MultiBinding-->
+		<!--Binding mit mehreren Quellen-->
+		<!--Benötigt immer einen Converter-->
+		
+		<!--Beispiel: 4 Slider an ein Margin binden-->
+		<Slider Minimum="0" Maximum="100" Name="LSlider"/>
+		<Slider Minimum="0" Maximum="100" Name="TSlider"/>
+		<Slider Minimum="0" Maximum="100" Name="RSlider"/>
+		<Slider Minimum="0" Maximum="100" Name="BSlider"/>
+		<Button Content="Margin Sliders">
+			<!--MultiBinding muss per Langform definiert wird-->
+			<Button.Margin>
+				<MultiBinding>
+					<Binding ElementName="LSlider" Path="Value"/>
+					<Binding ElementName="TSlider" Path="Value"/>
+					<Binding ElementName="RSlider" Path="Value"/>
+					<Binding ElementName="BSlider" Path="Value"/>
+					<MultiBinding.Converter>
+						<local:FourValueToMarginConverter/>
+					</MultiBinding.Converter>
+				</MultiBinding>
+			</Button.Margin>
+		</Button>
+		<Separator/>
+	</StackPanel>
+</Window>
