@@ -1,0 +1,42 @@
+﻿<Window x:Class="M005.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="MainWindow" Height="450" Width="300"
+		WindowStartupLocation="CenterScreen"
+		Topmost="True"
+		FontSize="30">
+    <StackPanel Margin="5">
+		<!--DataBinding-->
+		<!--Binding zw. einer GUI-Komponente und einer Variable aus dem Backend-->
+		<!--Hier sind zwei weitere Schritte notwendig: DataContext, INotifyPropertyChanged-->
+		
+		<!--Aufgabenstellung: Button, welcher einen Zähler hochzählt, und diesen in der GUI anzeigt-->
+		<TextBlock Text="{Binding Path=Zaehler}"/>
+		<Button Content="+1" Click="Button_Click"/>
+		<!--Zähler ist in der GUI nicht sichtbar -> DataContext fehlt-->
+		<!--Die GUI hat hier keine Ahnung wie die Daten aussehen, die angezeigt werden sollen-->
+		<!--Lösung: DataContext setzen-->
+		
+		<!--DataContext-->
+		<!--Zwei Möglichkeiten: -->
+		<!--Im XAML: DataContext="{Binding RelativeSource={RelativeSource Self}}" -> Setze den DataContext des Fensters auf das Fenster selbst-->
+		<!--Im Backend: this.DataContext = this;-->
+		<!--Diese beiden Zeilen Code geben kompletten Zugriff auf MainWindow.xaml.cs-->
+		
+		
+		<!--INotifyPropertyChanged-->
+		<!--Benachrichtigungsmechanismus, welcher dem Backend ermöglicht, die GUI über Änderungen zu informieren-->
+		<!--Normalerweise, bekommt die GUI Änderungen im Backend nicht mit-->
+		<!--Dieses Interface gibt uns die Möglichkeit, den Benachrichtigungsmechanismus zu implementieren-->
+		<!--Siehe Backend-->
+
+		
+		<!--ObservableCollection-->
+		<!--Liste, welche INotifyPropertyChanged implementiert-->
+		<ListBox ItemsSource="{Binding Zahlen}"/>
+		<Button Content="Element hinzufügen" Click="Button_Click_1"/>
+
+		<TextBlock Text="{Binding Zahlen[0]}"/>
+	</StackPanel>
+</Window>
