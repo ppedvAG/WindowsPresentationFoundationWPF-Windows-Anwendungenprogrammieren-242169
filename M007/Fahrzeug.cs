@@ -20,5 +20,3 @@ public class Fahrzeug
 		return $"MaxV: {MaxV}, Marke: {Marke}";
 	}
 }
-
-public enum FahrzeugMarke { Audi, BMW, VW }
