@@ -1,0 +1,86 @@
+﻿<Window x:Class="M009.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="clr-namespace:M009"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="MainWindow" Height="450" Width="300"
+		WindowStartupLocation="CenterScreen"
+		Topmost="True">
+	<Window.Resources>
+		<!--ErrorTemplate-->
+		<!--Darstellung der Validierungen verändern-->
+		<!--u.a. Fehlermeldungen anzeigen-->
+		<!--Wird eingebunden mittels StaticResource-->
+		<ControlTemplate x:Key="ErrorTemplate">
+			<StackPanel>
+				<Border BorderBrush="Red" BorderThickness="3">
+					<!--Die UI-Komponente, welche gerade eben validiert wird-->
+					<AdornedElementPlaceholder Name="AEP"/>
+				</Border>
+				<Popup IsOpen="{Binding ElementName=AEP, Path=AdornedElement.IsMouseOver, Mode=OneWay}">
+					<TextBlock Text="{Binding ElementName=AEP, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+							   Background="Red"
+							   Foreground="White"
+							   FontSize="16"
+							   FontWeight="Bold"/>
+				</Popup>
+			</StackPanel>
+		</ControlTemplate>
+		
+		<!--Bei allen TextBoxen das Template einbinden-->
+		<Style TargetType="TextBox">
+			<Setter Property="Validation.ErrorTemplate" Value="{StaticResource ErrorTemplate}"/>
+		</Style>
+	</Window.Resources>
+    <StackPanel Margin="5">
+		<!--Validation-->
+		<!--Prüfung von User Eingaben-->
+		
+		<!--Drei Möglichkeiten: -->
+		<!--ValidationRule-->
+		<!--ValidateOnException-->
+		<!--ValidateOnDataError-->
+		
+		<!--Es kann auch die Darstellungen der Fehlermeldungen angepasst werden-->
+
+		<!--................................................................................................................-->
+		
+		<!--Aufgabenstellung: Der User soll nur Buchstaben eingeben können, die Eingabe muss zw. 3 und 15 Zeichen haben-->
+		
+		<!--1. ValidationRule-->
+		<!--ValidationRules benötigen eine Klasse-->
+		
+		<!--ValidationRules funktionieren nicht in der Kurzform (MarkupExtension)-->
+		<!--Eigene MarkupExtension notwendig-->
+		<TextBox>
+			<TextBox.Text>
+				<!--UpdateSourceTrigger: Gibt an, wann das Binding durchgeführt wird-->
+				<!--Standard hier: LostFocus-->
+				<Binding Path="DieEingabe" UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:LengthValidation/>
+						<local:LetterValidation/>
+					</Binding.ValidationRules>
+				</Binding>
+			</TextBox.Text>
+		</TextBox>
+		<Button Content="Eingabe bestätigen" Click="Button_Click"/>
+		
+		<!--2. ValidateOnException-->
+		<!--Wenn bei { set; } eine Exception geworfen wird, wird die Validierung durchgeführt-->
+		<!--WICHTIG: Diese Validierungsregel muss einschalten werden-->
+		<TextBox Text="{Binding DieEingabeMitException, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+		
+		<!--3. ValidateOnDataError-->
+		<!--Interface namens IDataErrorInfo, dieses Interface wird für die Validierung verwendet-->
+		<!--WICHTIG: Diese Validierungsregel muss einschalten werden-->
+		<TextBox Text="{Binding DieEingabe, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+				 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+
+		<!--................................................................................................................-->
+
+		<!--ErrorTemplate-->
+		<!--Darstellung der Validierungen verändern-->
+		<!--u.a. Fehlermeldungen anzeigen-->
+	</StackPanel>
+</Window>
