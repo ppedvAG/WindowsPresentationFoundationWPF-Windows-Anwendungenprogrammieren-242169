@@ -1,0 +1,154 @@
+﻿<Window x:Class="M007.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="clr-namespace:M007"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="MainWindow" Height="450" Width="300"
+		WindowStartupLocation="CenterScreen"
+		Topmost="True">
+	<Window.Resources>
+		<local:MarkeToImagePathConverter x:Key="ImgPathConv"/>
+		
+		<ControlTemplate TargetType="Button" x:Key="DefaultButtonTemplate">
+			<!--TemplateBinding-->
+			<!--Wird in ControlTemplates verwendet, um auf Eigenschaften zuzugreifen, welche vom User bei der Komponente gesetzt werden-->
+			<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"	Background="{TemplateBinding Background}" CornerRadius="10">
+				<TextBlock Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" TextAlignment="Center"/>
+			</Border>
+		</ControlTemplate>
+
+		<!--siehe Globale Styles-->
+		<Style TargetType="Button">
+			<Setter Property="Template" Value="{StaticResource DefaultButtonTemplate}"/>
+		</Style>
+
+		<!--Alle Fahrzeuge im Window werden jetzt dieses DT empfangen-->
+		<!--WICHTIG: Datentyp muss per x:Type angegeben werden-->
+		<DataTemplate DataType="{x:Type local:Fahrzeug}">
+			<!--Jedes Element in der ListBox soll den folgenden Aufbau haben:-->
+			<StackPanel Orientation="Horizontal">
+				<Image Source="{Binding Marke, Converter={StaticResource ImgPathConv}}"
+							   Height="50"
+							   Width="100"/>
+				<Line X1="0" X2="0" Y1="0" Y2="100" StrokeThickness="1" Stroke="Black" Margin="10, 0"/>
+				<Image Source="C:\Users\lk3\source\repos\WPF_2024_10_14\M007\Images\velocity.png"
+							   Height="50"/>
+				<TextBlock Text="{Binding MaxV, StringFormat=' {0}km/h'}"
+								   VerticalAlignment="Center"
+								   FontSize="50"/>
+			</StackPanel>
+		</DataTemplate>
+	</Window.Resources>
+	<StackPanel Margin="5">
+		<!--Template-->
+		<!--Anzeige von Komponenten oder von Daten anzupassen-->
+		<!--Komponente: ControlTemplate-->
+		<!--Daten: DataTemplate-->
+
+		<!--95% aller Anwendungen benötigen das DataTemplate-->
+
+		<!--DataTemplate-->
+		<!--Wenn eine Komponente Daten empfängt, werden diese in einer Stringform dargestellt-->
+		<!--Wenn die Darstellung verändert werden soll, kann ein DataTemplate verwendet werden-->
+
+		<!--Jedes Element wird mit M007.Fahrzeug dargestellt (ToString)-->
+		<!--<ListBox ItemsSource="{Binding Fahrzeuge}"/>-->
+
+		<!--Hier kann jetzt ein DataTemplate verwendet werden, um GUI-Elemente zu definieren, welche jedes Listenelement aufbauen-->
+		<!--Aufgabenstellung: Jedes Element soll ein Bild für die Marke haben, ein Bild für die Geschwindigkeit haben + den Wert-->
+		<ListBox ItemsSource="{Binding Fahrzeuge}">
+			<ListBox.ItemTemplate>
+				<!--Hier können jetzt GUI-Elemente definiert werden, welche bei jedem Item dargestellt werden-->
+				<DataTemplate>
+					<!--Jedes Element in der ListBox soll den folgenden Aufbau haben:--> 
+					<StackPanel Orientation="Horizontal">
+						<Image Source="{Binding Marke, Converter={StaticResource ImgPathConv}}"
+							   Height="50"
+							   Width="100"/>
+						<Line X1="0" X2="0" Y1="0" Y2="100" StrokeThickness="1" Stroke="Black" Margin="10, 0"/>
+						<Image Source="C:\Users\lk3\source\repos\WPF_2024_10_14\M007\Images\velocity.png"
+							   Height="50"/>
+						<TextBlock Text="{Binding MaxV, StringFormat=' {0}km/h'}"
+								   VerticalAlignment="Center"
+								   FontSize="50"/>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<UniformGrid Columns="3"/>
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+		</ListBox>
+		
+		<!--ItemsPanelTemplate-->
+		<!--Kann verwendet werden, um den Container der Items zu verändern-->
+		<!--Beispiel: ListBox hat standardmäßig ein StackPanel-->
+		<!--Stattdessen könnte der Container auch ein ScrollViewer oder ein UniformGrid sein-->
+
+		<!--Beispiel: Darstellung einer Gruppierung-->
+		<ListBox ItemsSource="{Binding Gruppierung}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<ListBox ItemsSource="{Binding Value}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<Image Source="{Binding Marke, Converter={StaticResource ImgPathConv}}"
+										   Height="50"
+										   Width="100"/>
+									<Line X1="0" X2="0" Y1="0" Y2="100" StrokeThickness="1" Stroke="Black" Margin="10, 0"/>
+									<Image Source="C:\Users\lk3\source\repos\WPF_2024_10_14\M007\Images\velocity.png"
+										   Height="50"/>
+									<TextBlock Text="{Binding MaxV, StringFormat=' {0}km/h'}"
+											   VerticalAlignment="Center"
+											   FontSize="50"/>
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<UniformGrid Columns="{Binding Path=Gruppierung.Count}"/>
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+		</ListBox>
+		
+		<!--..................................................................................-->
+		
+		<!--ControlTemplate-->
+		<!--Erlaubt, eine komplette Neugestaltung von bestehenden Komponenten-->
+		<!--Kann in jeder Komponente verwendet werden (mit der Template Eigenschaft)-->
+		<Button Content="Hallo"
+				BorderBrush="Aqua"
+				BorderThickness="2"
+				Background="Orange"
+				FontSize="40"
+				Foreground="LightGreen">
+			<Button.Template>
+				<ControlTemplate TargetType="Button">
+					<!--TemplateBinding-->
+					<!--Wird in ControlTemplates verwendet, um auf Eigenschaften zuzugreifen, welche vom User bei der Komponente gesetzt werden-->
+					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"	Background="{TemplateBinding Background}" CornerRadius="10">
+						<TextBlock Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" TextAlignment="Center"/>
+					</Border>
+				</ControlTemplate>
+			</Button.Template>
+		</Button>
+
+		<!--Templates als Resources-->
+		<!--Generell werden Templates an mehreren Stellen im Code verwendet -> Resources-->
+		<!--Wird häufig in Kombination mit Styles verwendet-->
+		<!--Siehe Window.Resources-->
+
+
+		<!--Übernimmt das ControlTemplate aus den Resources-->
+		<Button Content="Hallo 2"/>
+		
+		<!--Übernimmt das DataTemplate aus den Resources-->
+		<ListBox ItemsSource="{Binding Fahrzeuge}"/>
+	</StackPanel>
+</Window>
