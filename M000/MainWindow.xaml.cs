@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using M000.Model;
 
 namespace M000;
 
@@ -7,7 +8,7 @@ public partial class MainWindow : Window
 	/// <summary>
 	/// Schritt 3
 	/// </summary>
-	public Person person { get; set; } = new Person() { Geschlecht = Geschlecht.W };
+	public Person person { get; set; } = new Person();
 
 	public MainWindow()
 	{

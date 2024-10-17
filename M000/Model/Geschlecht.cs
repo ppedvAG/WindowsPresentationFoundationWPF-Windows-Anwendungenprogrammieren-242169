@@ -1,4 +1,4 @@
-﻿namespace M000;
+﻿namespace M000.Model;
 
 /// <summary>
 /// Schritt 1
@@ -7,5 +7,5 @@
 /// </summary>
 public enum Geschlecht
 {
-	M, W, D
+    M, W, D
 }
