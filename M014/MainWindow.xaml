@@ -1,0 +1,14 @@
+﻿<Window x:Class="M014.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="clr-namespace:M014"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+		<!--UserControls-->
+		<!--Eigene UI-Komponenten designen-->
+		<!--Zwei Teile: GUI (XAML), Backend DependencyProperty-->
+		
+		<!--Aufgabenstellung: Zähler mit Hoch-/Hinunter Buttons auf der rechten Seite-->
+		<local:Counter/>
+	</Grid>
+</Window>

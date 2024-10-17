@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="M000.Counter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 Name="Self">
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="50"/>
+		</Grid.ColumnDefinitions>
+
+		<!--WICHTIG: In einem UserControl niemals einen DataContext setzen-->
+		<!--Die umliegende View (MainWindow) wird den DataContext überschreiben-->
+		<!--Mit Name kann eine Bindung ins Backend durchgeführt werden-->
+		<TextBox Text="{Binding ElementName=Self, Path=Zahl}"/>
+		<StackPanel Grid.Column="1">
+			<Button Content="&#11205;" Click="CounterUp"/>
+			<Button Content="&#11206;" Click="CounterDown"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

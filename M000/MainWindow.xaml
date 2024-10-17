@@ -5,6 +5,7 @@
 		xmlns:conv="clr-namespace:M000.Converter"
 		xmlns:model="clr-namespace:M000.Model"
 		xmlns:valid="clr-namespace:M000.Validation"
+		xmlns:local="clr-namespace:M000"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="MainWindow" Height="450" Width="300"
 		SizeToContent="Height"
@@ -126,6 +127,10 @@
 				<RadioButton Content="D"
 							 IsChecked="{Binding person.Geschlecht, Converter={StaticResource BGConv}, ConverterParameter={x:Static model:Geschlecht.D}}"/>
 			</StackPanel>
+		</UniformGrid>
+		<UniformGrid>
+			<TextBlock Text="Anzahl Kinder: "/>
+			<local:Counter Zahl="{Binding person.AnzKinder, Mode=TwoWay}"/>
 		</UniformGrid>
 		<UniformGrid>
 			<Button Content="OK" Margin="0, 0, 2.5, 0" Click="Button_Click">

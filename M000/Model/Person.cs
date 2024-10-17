@@ -17,6 +17,7 @@ public class Person : INotifyPropertyChanged
     private bool verheiratet;
     private Color lieblingsfarbe;
     private Geschlecht geschlecht;
+	private int anzKinder;
 
     public string Vorname
     {
@@ -78,9 +79,19 @@ public class Person : INotifyPropertyChanged
         }
     }
 
-    //Schritt 2
+	public int AnzKinder
+	{
+		get => anzKinder;
+		set
+		{
+			anzKinder = value;
+			Notify();
+		}
+	}
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+	//Schritt 2
+
+	public event PropertyChangedEventHandler? PropertyChanged;
 
     public void Notify([CallerMemberName] string propName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 }
