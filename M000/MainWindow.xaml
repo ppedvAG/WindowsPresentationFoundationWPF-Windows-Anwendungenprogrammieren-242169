@@ -45,7 +45,8 @@
 	<StackPanel Margin="5">
 		<UniformGrid>
 			<TextBlock Text="Vorname: "/>
-			<TextBox Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+			<TextBox Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+					 Name="VornameTB">
 				<TextBox.Text>
 					<Binding Path="person.Vorname" UpdateSourceTrigger="PropertyChanged">
 						<Binding.ValidationRules>
@@ -59,7 +60,8 @@
 		</UniformGrid>
 		<UniformGrid>
 			<TextBlock Text="Nachname: "/>
-			<TextBox Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+			<TextBox Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+					 Name="NachnameTB">
 				<TextBox.Text>
 					<Binding Path="person.Nachname" UpdateSourceTrigger="PropertyChanged">
 						<Binding.ValidationRules>
@@ -73,7 +75,8 @@
 		</UniformGrid>
 		<UniformGrid>
 			<TextBlock Text="Geburtsdatum: "/>
-			<DatePicker Margin="0" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+			<DatePicker Margin="0" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+						Name="GebDatDP">
 				<DatePicker.SelectedDate>
 					<Binding Path="person.Geburtsdatum" UpdateSourceTrigger="PropertyChanged">
 						<Binding.ValidationRules>
@@ -88,7 +91,8 @@
 			<TextBlock Text="Lieblingsfarbe: "/>
 			<ComboBox SelectedValuePath="Name"
 					  ItemsSource="{Binding Source={StaticResource Odp_ColorsProperties}}"
-					  Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+					  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+					  Name="FarbeCB">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal">
@@ -124,7 +128,24 @@
 			</StackPanel>
 		</UniformGrid>
 		<UniformGrid>
-			<Button Content="OK" Margin="0, 0, 2.5, 0" Click="Button_Click"/>
+			<Button Content="OK" Margin="0, 0, 2.5, 0" Click="Button_Click">
+				<Button.Style>
+					<Style TargetType="Button">
+						<Setter Property="IsEnabled" Value="False"/>
+						<Style.Triggers>
+							<MultiDataTrigger>
+								<MultiDataTrigger.Conditions>
+									<Condition Binding="{Binding ElementName=VornameTB, Path=(Validation.HasError)}" Value="False"/>
+									<Condition Binding="{Binding ElementName=NachnameTB, Path=(Validation.HasError)}" Value="False"/>
+									<Condition Binding="{Binding ElementName=GebDatDP, Path=(Validation.HasError)}" Value="False"/>
+									<Condition Binding="{Binding ElementName=FarbeCB, Path=(Validation.HasError)}" Value="False"/>
+								</MultiDataTrigger.Conditions>
+								<Setter Property="IsEnabled" Value="True"/>
+							</MultiDataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Button.Style>
+			</Button>
 			<Button Content="Abbrechen" Margin="2.5, 0, 0, 0"/>
 		</UniformGrid>
     </StackPanel>
