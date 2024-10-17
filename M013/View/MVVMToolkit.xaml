@@ -1,0 +1,23 @@
+﻿<Window x:Class="M013.View.MVVMToolkit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:vm="clr-namespace:M013.ViewModel"
+        xmlns:local="clr-namespace:M013.View"
+		WindowStartupLocation="CenterScreen"
+		Topmost="True"
+        Title="MVVMToolkit" 
+		Height="450"
+		Width="300">
+	<Window.DataContext>
+		<vm:MVVMToolkitViewModel/>
+	</Window.DataContext>
+    <StackPanel>
+        <!--MVVM Toolkit-->
+		<!--Vereinfacht verbose Teile von MVVM-->
+		<!--u.a. INotifyPropertyChanged, Commands-->
+		<!--NuGet: CommunityToolkit.MVVM-->
+		<TextBlock Text="{Binding Zahl}"/>
+		<Button Command="{Binding TestCommand}"
+				Content="Zähler++"/>
+	</StackPanel>
+</Window>
